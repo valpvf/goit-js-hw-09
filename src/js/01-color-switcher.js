@@ -4,7 +4,7 @@ const refs = {
   bodyEl: document.querySelector('body'),  
 };
 
-const timerID = null;
+let timerID = null;
 
 refs.startBtn.addEventListener('click', onBtnColorChange);
 
