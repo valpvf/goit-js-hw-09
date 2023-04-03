@@ -1,9 +1,10 @@
 const refs = {
   startBtn: document.querySelector('button[data-start]'),
   stopBtn: document.querySelector('button[data-stop]'),
-  bodyEl: document.querySelector('body'),
-  timerID: null,
+  bodyEl: document.querySelector('body'),  
 };
+
+const timerID = null;
 
 refs.startBtn.addEventListener('click', onBtnColorChange);
 
