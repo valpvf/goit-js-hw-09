@@ -18,7 +18,7 @@ const options = {
     if (selectedDates[0] < options.defaultDate) {
       return Notify.failure('Please choose a date in the future');
     }
-    refs.inputEl.nextElementSibling.removeAttribute('disabled');
+    refs.startBtn.removeAttribute('disabled');
     refs.startBtn.addEventListener('click', onTimerStart);
   },
 };
@@ -26,11 +26,19 @@ const options = {
 let calendar = flatpickr('#datetime-picker', options);
 
 function onTimerStart(evt) {
-  setInterval(() => {
-    const time = convertMs(calendar.latestSelectedDateObj - Date.now());
+  refs.startBtn.setAttribute('disabled', '');
+  const timerID = setInterval(() => {
+    let interval = calendar.latestSelectedDateObj - Date.now();
+    if (interval < 1) {
+      clearInterval(timerID);
+      interval = 0;
+    }
+    const time = convertMs(interval);
     const arr = Object.keys(time);
     for (let i = 0; i < arr.length; i++) {
-      refs.tablo[i].firstChild.textContent = addLeadingZero(Object.values(time)[i]);      
+      refs.tablo[i].firstChild.textContent = addLeadingZero(
+        Object.values(time)[i]
+      );
     }
   }, 1000);
 }
